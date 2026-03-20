@@ -13,4 +13,9 @@ RUN ls -la /tmp/jars/ && \
     cp "$JAR" /app/app.jar && \
     ls -la /app/app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", \
+  "-Dspring.main.web-application-type=servlet", \
+  "-Dspring.main.banner-mode=console", \
+  "-Dlogging.pattern.console=%d{HH:mm:ss} %-5level - %msg%n", \
+  "-Dspring.ai.mcp.server.transport=sse", \
+  "-jar", "/app/app.jar"]
